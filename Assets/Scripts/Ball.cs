@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public float speed = 5f;
-    public float speedIncrement = 0.5f;
-    public float speedDecrement = 0.5f;
-    public float minSpeed = 2f;
+    public float speed = 70f;
+    public float speedIncrement = 2.5f;
+    public float speedDecrement = 0.0f;
+    public float minSpeed = 60f;
     private Rigidbody2D rb;
 
     void Start()
