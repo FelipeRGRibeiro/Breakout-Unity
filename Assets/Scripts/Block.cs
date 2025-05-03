@@ -1,22 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using System.Threading;
 
 public class Block : MonoBehaviour
 {
     public GameObject block;
     private int healthPoints = 1;
-    public static List<Color> cores = new List<Color> { Color.blue, Color.green, Color.white };
-    private int[] healthByColor = { 3, 2, 1 };
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public BlockType type;
+    private int Count = BlockType.blockTypes.Count;
+
     void Start()
     {
-        for(int i=0; i<cores.Count; i++)
-        {
-            if (block.GetComponent<SpriteRenderer>().color == cores[i])
-            {
-                healthPoints = healthByColor[i];
-            }
-        }
+        BlockType type = BlockType.GetTypeByColor(block.GetComponent<SpriteRenderer>().color);
+        healthPoints = type.Hp;
     }
 
     // Update is called once per frame
@@ -28,26 +25,53 @@ public class Block : MonoBehaviour
     {
         healthPoints--;
         Debug.Log(Player.score);
-        for (int i = 0; i < cores.Count; i++)
+        for (int i = 0; i < Count; i++)
         {
-            if (healthPoints == healthByColor[i])
+            if (healthPoints == BlockType.blockTypes[i].Hp)
             {
-                block.GetComponent<SpriteRenderer>().color = cores[i];
+                type = BlockType.blockTypes[i];
+                block.GetComponent<SpriteRenderer>().color = type.Color;
             }
         }
-        /*if (healthPoints == 2)
-        {
-            block.GetComponent<SpriteRenderer>().color = Color.blue;
-        }
-        else if (healthPoints == 1)
-        {
-            block.GetComponent<SpriteRenderer>().color = Color.white;
-        }
-        else*/
+
         if(healthPoints <= 0)
         {
             Destroy(block);
             Player.score += 1;
         }
     }
+}
+
+public class BlockType
+{
+    public static readonly BlockType White = new BlockType(1, Color.white);
+    public static readonly BlockType Green = new BlockType(2, Color.green);
+    public static readonly BlockType Blue = new BlockType(3, Color.blue);
+
+
+    public int Hp { get; }
+    public Color Color { get; }
+
+    private BlockType(int hp, Color color)
+    {
+        Hp = hp;
+        Color = color;
+    }
+
+    public static readonly List<BlockType> blockTypes = new List<BlockType> { White, Green, Blue };
+
+    public static BlockType GetTypeByColor(Color color)
+    {
+        foreach(BlockType type in blockTypes)
+        {
+            if (type.Color == color) return type;
+        }
+        return null;
+        
+    }
+    public static BlockType GetRandomType()
+    {
+        return blockTypes[UnityEngine.Random.Range(0, BlockType.blockTypes.Count)];
+    }
+
 }

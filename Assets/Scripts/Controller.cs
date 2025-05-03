@@ -8,8 +8,8 @@ public class Controller : MonoBehaviour
     float x = -2.5f;
     float y = 2f;
     float deltaX = 1f;
-    float deltaY = 0.5f;
-    int randCor;
+    float deltaY = 0.5f;    
+
     void Start()
     {
         for(int i=0; i<6; i++)
@@ -18,8 +18,7 @@ public class Controller : MonoBehaviour
             {
                 GameObject newPrefab = Instantiate(prefab);
                 newPrefab.transform.position = new Vector3(x+(deltaX*i), y+(deltaY*j), 0);
-                randCor = Random.Range(0, Block.cores.Count);
-                newPrefab.GetComponent<SpriteRenderer>().color = Block.cores[randCor];
+                newPrefab.GetComponent<SpriteRenderer>().color = BlockType.GetRandomType().Color;
             }
         }
         
