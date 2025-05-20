@@ -1,10 +1,12 @@
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
     public float unitSpeed = 12f;
     public Rigidbody2D rb;
     public static int score = 0;
+    public TextMeshProUGUI scoreText;
     void Start()
     {
         Debug.Log(score);
@@ -18,6 +20,7 @@ public class Player : MonoBehaviour
         float newPosition = Mathf.Clamp(transform.position.x + movement, -2.3f, 2.3f);
 
         transform.position = new Vector3(newPosition, transform.position.y, transform.position.z);
+        scoreText.text = score.ToString();
     }
 
 
