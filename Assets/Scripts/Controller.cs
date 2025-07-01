@@ -28,9 +28,9 @@ public class Controller : MonoBehaviour
 
     void StartStage(int stage)
     {
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 6; i++)
         {
-            for (int j = 0; j < 1; j++)
+            for (int j = 0; j < 5; j++)
             {
                 GameObject newPrefab = Instantiate(prefab);
                 newPrefab.transform.position = new Vector3(x + (deltaX * i), y + (deltaY * j), 0);
@@ -46,6 +46,5 @@ public class Controller : MonoBehaviour
         Player.stage++;
         StartStage(stage);
         Ball.DefinePosition();
-        Player.DefinePosition();
     }
 }
