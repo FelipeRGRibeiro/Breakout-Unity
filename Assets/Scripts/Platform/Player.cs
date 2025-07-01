@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public static int score = 0;
     public TextMeshProUGUI scoreText;
+    public static int life = 2;
+    public TextMeshProUGUI lifeText;
+    public static int stage = 1;
+    public TextMeshProUGUI stageText;
     void Start()
     {
         Debug.Log(score);
@@ -21,6 +25,8 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector3(newPosition, transform.position.y, transform.position.z);
         scoreText.text = score.ToString();
+        lifeText.text = life.ToString();
+        stageText.text = stage.ToString();
     }
 
 

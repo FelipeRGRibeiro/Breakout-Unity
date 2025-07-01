@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public float speed = 5f;
+    public static float speed = 5f;
     public float maxSpeed = 50f;
-    private Rigidbody2D rb;
-
+    public static Rigidbody2D rb;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.linearVelocity= Vector2.down * maxSpeed;
+        DefinePosition();
     }
 
     void Update()
@@ -22,5 +22,12 @@ public class Ball : MonoBehaviour
         }
         speed = rb.linearVelocity.magnitude;
     }
+
+    public static void DefinePosition()
+    {
+        rb.transform.position = new Vector3(0, -3, 10);
+        rb.linearVelocity = Vector2.down * speed;
+    }
+    
 
 }

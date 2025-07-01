@@ -37,6 +37,7 @@ public class Block : MonoBehaviour
         if(healthPoints <= 0)
         {
             Destroy(block);
+            Controller.blockCount--;
             Player.score += 1;
         }
     }
