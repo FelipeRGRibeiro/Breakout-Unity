@@ -26,6 +26,7 @@ public class MenuInicial : MonoBehaviour
         EditorSceneManager.LoadScene("MainGame");
         // Coloque aqui o que deseja que aconteça quando o botão for clicado
     }
+    
     void quit()
     {
         Application.Quit();

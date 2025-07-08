@@ -4,18 +4,55 @@ using TMPro;
 public class Player : MonoBehaviour
 {
     public float unitSpeed = 12f;
-    public Rigidbody2D rb;
-    public static int score = 0;
+    private Rigidbody2D rb;
+    private int score = 0;
     public TextMeshProUGUI scoreText;
-    public static int life = 2;
+    private int life = 2;
     public TextMeshProUGUI lifeText;
-    public static int stage = 1;
+    private int stage = 1;
     public TextMeshProUGUI stageText;
-    void Start()
+    public static Player player { get; private set; }
+    private void Awake()
     {
-        Debug.Log(score);
-    }
+        if (player == null)
+            player = this;
+        else
+            Destroy(gameObject);
 
+        rb = GetComponent<Rigidbody2D>();
+
+        if (rb == null)
+            Debug.LogError("Rigidbody2D not found on Player!");
+
+    }
+    public void decrementLife()
+    {
+        player.life--;
+    }
+    public int getLife()
+    {
+        return player.life; 
+    }
+    public void setScore(int Score)
+    {
+        player.score = Score;
+    }
+    public void incrementScore()
+    {
+        player.score++;
+    }
+    public int getScore()
+    {
+        return player.score;
+    }
+    public void incrementStage()
+    {
+        player.stage++;
+    }
+    public int getStage()
+    {
+        return player.stage;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -28,6 +65,10 @@ public class Player : MonoBehaviour
         lifeText.text = life.ToString();
         stageText.text = stage.ToString();
     }
-
+    public static void DefinePosition()
+    {
+        if (player.rb != null)
+            player.rb.transform.position = new Vector3(0, -4.3f, 10);
+    }
 
 }

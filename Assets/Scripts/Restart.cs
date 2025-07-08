@@ -8,8 +8,10 @@ public class Restart : MonoBehaviour
     public Button ConfirmButton;
     public GameObject ScoreBoard;
     public TextMeshProUGUI finalScore;
+    private Player player;
     private void Start()
     {
+        player = UnityEngine.Object.FindAnyObjectByType<Player>();
         ScoreBoard.SetActive(false);
         if (ConfirmButton != null)
         {
@@ -20,8 +22,20 @@ public class Restart : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         Debug.Log("Morreu");
-        finalScore.text += Player.score.ToString();
-        ScoreBoard.SetActive(true);
+        finalScore.text += player.getScore().ToString();
+        //ScoreBoard.SetActive(true);
+        if (player.getLife() > 0)
+        {
+            player.decrementLife();
+
+            //ScoreBoard.SetActive(false);
+            Ball.DefinePosition();
+            Player.DefinePosition();
+        }
+        else
+        {
+            ScoreBoard.SetActive(true);
+        }
     }
     private void Renew()
     {

@@ -9,9 +9,11 @@ public class Block : MonoBehaviour
     private int healthPoints = 1;
     public BlockType type;
     private int Count = BlockType.blockTypes.Count;
+    private Player player;
 
     void Start()
     {
+        player = UnityEngine.Object.FindAnyObjectByType<Player>();
         BlockType type = BlockType.GetTypeByColor(block.GetComponent<SpriteRenderer>().color);
         healthPoints = type.Hp;
     }
@@ -24,7 +26,7 @@ public class Block : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         healthPoints--;
-        Debug.Log(Player.score);
+        //Debug.Log(Player.score);
         for (int i = 0; i < Count; i++)
         {
             if (healthPoints == BlockType.blockTypes[i].Hp)
@@ -38,7 +40,7 @@ public class Block : MonoBehaviour
         {
             Destroy(block);
             Controller.blockCount--;
-            Player.score += 1;
+            player.incrementScore();
         }
     }
 }

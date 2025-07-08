@@ -9,12 +9,13 @@ public class Controller : MonoBehaviour
     float y = 2f;
     float deltaX = 1f;
     float deltaY = 0.5f;
-    int stage = Player.stage;
     public static int blockCount = 0;
+    private Player player;
 
     void Start()
     {
-        StartStage(stage);
+        player = UnityEngine.Object.FindAnyObjectByType<Player>();
+        StartStage();
     }
 
     // Update is called once per frame
@@ -26,11 +27,11 @@ public class Controller : MonoBehaviour
         }
     }
 
-    void StartStage(int stage)
+    void StartStage()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 1; i++)//6
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 1; j++)//5
             {
                 GameObject newPrefab = Instantiate(prefab);
                 newPrefab.transform.position = new Vector3(x + (deltaX * i), y + (deltaY * j), 0);
@@ -38,13 +39,14 @@ public class Controller : MonoBehaviour
                 blockCount++;
             }
         }
-        Ball.speed += stage * 0.5f;
+        Ball.speed += player.getStage() * 0.5f;
     }
 
     void ChangeStage()
     {
-        Player.stage++;
-        StartStage(stage);
+        player.incrementStage();
+        StartStage();
         Ball.DefinePosition();
+        Player.DefinePosition();
     }
 }
