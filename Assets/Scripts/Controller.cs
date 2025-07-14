@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Controller : MonoBehaviour
 {
@@ -26,12 +27,16 @@ public class Controller : MonoBehaviour
             ChangeStage();
         }
     }
-
+    private IEnumerator WaitForMouseClick()
+    {
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        Time.timeScale = 1;
+    }
     void StartStage()
     {
-        for (int i = 0; i < 1; i++)//6
+        for (int i = 0; i < 6; i++)//6
         {
-            for (int j = 0; j < 1; j++)//5
+            for (int j = 0; j < 5; j++)//5
             {
                 GameObject newPrefab = Instantiate(prefab);
                 newPrefab.transform.position = new Vector3(x + (deltaX * i), y + (deltaY * j), 0);
@@ -40,6 +45,8 @@ public class Controller : MonoBehaviour
             }
         }
         Ball.speed += player.getStage() * 0.5f;
+        Time.timeScale = 0;
+        StartCoroutine(WaitForMouseClick());
     }
 
     void ChangeStage()
